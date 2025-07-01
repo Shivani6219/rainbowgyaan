@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rainbow Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Playfair+Display&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Gloria Hallelujah', cursive;
+      background-color: #fff;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      font-size: 2rem;
+      font-family: 'Playfair Display', serif;
+    }
+
+    main {
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    input, textarea {
+      font-family: 'Gloria Hallelujah', cursive;
+      padding: 1rem;
+      font-size: 1rem;
+      border: 2px dashed #ccc;
+      border-radius: 10px;
+    }
+
+    button {
+      background-color: violet;
+      color: white;
+      padding: 1rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .post {
+      border: 2px solid #ddd;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      background-color: #fdf4ff;
+      font-family: 'Gloria Hallelujah', cursive;
+    }
+
+    .post h3 {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    🌈 Welcome to My Rainbow Blog 🌈
+  </header>
+  <main>
+    <form id="blogForm">
+      <input type="text" id="title" placeholder="Blog Title" required />
+      <textarea id="content" rows="5" placeholder="Write your blog post here..." required></textarea>
+      <button type="submit">Post</button>
+    </form>
+    <div id="posts"></div>
+  </main>
+
+  <script>
+    const form = document.getElementById('blogForm');
+    const postsDiv = document.getElementById('posts');
+
+    function loadPosts() {
+      const posts = JSON.parse(localStorage.getItem('posts')) || [];
+      postsDiv.innerHTML = '';
+      posts.reverse().forEach(post => {
+        const div = document.createElement('div');
+        div.className = 'post';
+        div.innerHTML = `<h3>${post.title}</h3><p>${post.content}</p>`;
+        postsDiv.appendChild(div);
+      });
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const title = document.getElementById('title').value;
+      const content = document.getElementById('content').value;
+      const posts = JSON.parse(localStorage.getItem('posts')) || [];
+      posts.push({ title, content });
+      localStorage.setItem('posts', JSON.stringify(posts));
+      form.reset();
+      loadPosts();
+    });
+
+    loadPosts();
+  </script>
+</body>
+</html>
