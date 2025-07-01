@@ -1,2 +1,2 @@
 # rainbowgyaan
-This is a public site on rainbow gyaan hosted by Shivani Singh Sengar
+This is a public site on LGBTQIA+ awareness hosted by Shivani Singh Sengar
